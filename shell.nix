@@ -18,7 +18,7 @@ let
   };
 in
 mkShell {
-  name = "simpy-env";
+  name = "actr-notebook";
 
   nativeBuildInputs = [
     pythonEnv
