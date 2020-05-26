@@ -12,7 +12,7 @@ with import "${src.out}/overlay.nix" pkgs pkgs;
 let
   pythonEnv = poetry2nix.mkPoetryEnv {
     projectDir = ./.;
-    python = python3;
+    python = python3Full;
     pyproject = ./pyproject.toml;
     poetrylock = ./poetry.lock;
   };
