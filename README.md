@@ -11,3 +11,5 @@ Reproducible notebook environment for `pyactr`.
 - clone this repository.
 - `nix-shell --command jupyter-notebook`
 
+## TODO Using without `nix`
+
