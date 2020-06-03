@@ -1,4 +1,0 @@
-#+TITLE: Todo
-
-* TODO fix the results of running the agreement simulation
-* TODO implement the other example models from chapter 2
