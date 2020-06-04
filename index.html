@@ -13202,7 +13202,242 @@ a.anchor-link {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Chapter-1">Chapter 1<a class="anchor-link" href="#Chapter-1">&#182;</a></h1><h2 id="Creating-arbitrary-chunks">Creating arbitrary chunks<a class="anchor-link" href="#Creating-arbitrary-chunks">&#182;</a></h2><p>First, we conditionally import the <code>pyactr</code> module as <code>actr</code>.</p>
+<h1 id="Brasoveanu-&amp;-Dotla&#269;il-2020:-Computational-cognitive-modeling-and-linguistic-theory">Brasoveanu &amp; Dotla&#269;il 2020: <em>Computational cognitive modeling and linguistic theory</em><a class="anchor-link" href="#Brasoveanu-&amp;-Dotla&#269;il-2020:-Computational-cognitive-modeling-and-linguistic-theory">&#182;</a></h1><h2 id="Patrick-Elliott,-2020-06-04,-The-linking-lozenge">Patrick Elliott, 2020-06-04, <em>The linking lozenge</em><a class="anchor-link" href="#Patrick-Elliott,-2020-06-04,-The-linking-lozenge">&#182;</a></h2>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If you don't have a copy of the book yet, it's open access and available to download here: <a href="https://www.springer.com/gp/book/9783030318444">https://www.springer.com/gp/book/9783030318444</a></p>
+<p>Today I'll work up to the end of chapter 2. I'll tentatively plan to move onto chapter 3 in two weeks time.</p>
+<p>You don't really need to know any python to work through the examples, but the book is nevertheless pretty hands on. These slides are based on a runnable jupyter environment which you can find here: <a href="https://github.com/patrl/actr-notebook">https://github.com/patrl/actr-notebook</a></p>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Why-is-this-worth-reading?">Why is this worth reading?<a class="anchor-link" href="#Why-is-this-worth-reading?">&#182;</a></h1><p>How many <em>formally explicit</em> ways do we have of taking a competence theory, and integrating it into a plausible, and reasonably well-understood cognitive architecture, in a way that makes testable processing predictions?</p>
+<p>I'm a complete amateur when it comes to this domain, but my impressions:</p>
+<ul>
+<li>For syntactic theories, not very many at all.</li>
+<li>For semantic theories, perhaps none.</li>
+</ul>
+<p>One upon a time this was considered to be a central goal of generative linguistics more broadly, but it seems to have fallen by the wayside.</p>
+<p>To paraphrase the authors, this text aims to "have it all" by developing a framework for doing just this, with a focus on formal semantics.</p>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Necessary-background">Necessary background<a class="anchor-link" href="#Necessary-background">&#182;</a></h1><p>The book seems to be primarily aimed at theoretical linguists, rather than psycholinguists or cognitive scientists <em>per se</em>.</p>
+<p>On the theory side, the authors presuppose basic formal syntax/semantics,</p>
+<p>In later chapters, there will be a focus on Hans Kamp's <em>Discourse Representation Theory</em>, although we won't get there for a little while.</p>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Python">Python<a class="anchor-link" href="#Python">&#182;</a></h1><p>The ACT-R architecture was implemented as <code>pyactr</code> the second author in python. This library is used throughout the book: <a href="https://github.com/jakdot/pyactr">https://github.com/jakdot/pyactr</a></p>
+<p>The <em>official</em> implementation of ACT-R is in common lisp: <a href="http://act-r.psy.cmu.edu/software/">http://act-r.psy.cmu.edu/software/</a></p>
+<p>As far as I can see, it's not necessary to really know python in order to use <code>pyactr</code>. You can think of <code>pyactr</code> as a DSL for manipulating ACT-R models.</p>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Today-(chapter-2)">Today (chapter 2)<a class="anchor-link" href="#Today-(chapter-2)">&#182;</a></h1><p>Chapter 2 introduces the ACT-R cognitive architecture and the <code>pyactr</code> implementation.</p>
+<p>The main example will be a super simple model of subject verb agreement. There will be some other non-linguistic examples too.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Cognitive-architectures">Cognitive architectures<a class="anchor-link" href="#Cognitive-architectures">&#182;</a></h1><p>ACT-R - which stands for <strong>Adaptive Control of Thought-Rational</strong> is a <em>cognitive architecture</em></p>
+<p>A <em>cognitive architecture</em> "...specifies the general structure of the human mind at a level of abstraction that is sufficient to capture how the mind achieves its goals."</p>
+<p>We want to be able to talk about mental processes a few steps above "the bare metal" (or brain, in this instance). ACT-R is a cognitive architecture with a relatively high level of abstraction, which has been used, e.g., to model equation solving and other higher level processes.</p>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Kinds-of-models-in-cognitive-science">Kinds of models in cognitive science<a class="anchor-link" href="#Kinds-of-models-in-cognitive-science">&#182;</a></h1><h2 id="Descriptive-models">Descriptive models<a class="anchor-link" href="#Descriptive-models">&#182;</a></h2><p>Descriptive models aim to "...replace the intricacies of a full data set with a simpler representation in terms of the model's parameters".</p>
+<h2 id="Characterization-models">Characterization models<a class="anchor-link" href="#Characterization-models">&#182;</a></h2><p>These identify and measure cognitive stages, but are neutral wrt the exact mechanics of those stages.</p>
+<p>B&amp;D describe competence theories of syntax and semantics as <em>characterization</em> models.</p>
+<h2 id="Process-models">Process models<a class="anchor-link" href="#Process-models">&#182;</a></h2><p>Process models describe all cognitive processes in detail and leave nothing within their scope unspecified.</p>
+<p>In other words, a process model is an (explicit) <em>performance</em> model. ACT-R is a process model.</p>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Why-do-(theoretical)-linguists-need-process-models?">Why do (theoretical) linguists need process models?<a class="anchor-link" href="#Why-do-(theoretical)-linguists-need-process-models?">&#182;</a></h1><p>Why aren't characterization (competence) models enough for the questions that linguists are interested?</p>
+<p>We can't always tell whether or not the best analysis of a given phenomenon is the remit of a a competence theory, a performance theory, or both.</p>
+<p>Often, performance is treated as a kind of wastebasket, without an explicit understanding of how competence theories feed into processing models.</p>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="ACT-R">ACT-R<a class="anchor-link" href="#ACT-R">&#182;</a></h1><p>The textbook only gives a cursory overview of the ACT-R cognitive architecture. Some important reference points:</p>
+<ul>
+<li>The official website: <a href="http://act-r.psy.cmu.edu/">http://act-r.psy.cmu.edu/</a></li>
+<li>Anderson, J. R. (1990). <em>Cognitive Psychology and its Implications</em>. </li>
+<li>Anderson, J. R. &amp; Lebiere, C. (1998). <em>The atomic components of thought</em>.</li>
+<li>Anderson, J. R., Bothell, D., Byrne, M. D., Douglass, S., Lebiere, C., &amp; Qin, Y . (2004). An integrated theory of the mind. <em>Psychological Review</em> 111, (4). 1036-1060</li>
+</ul>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Applications-of-ACT-R-in-linguistics">Applications of ACT-R in linguistics<a class="anchor-link" href="#Applications-of-ACT-R-in-linguistics">&#182;</a></h1><p>B&amp;D describe it as "the most popular cognitive architecture in linguistics".</p>
+<p>Its predecessor ACT was used by Anderson (1976) to model facts about language and grammar, but abandoned soon after due to criticisms from Wexler (1978).</p>
+<p>More recently, Lewis and Vasishth (2005) implemented left-corner parsers in ACT-R. This will be a goal in the next chapter.</p>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Symbolic-and-sub-symbolic-components">Symbolic and sub-symbolic components<a class="anchor-link" href="#Symbolic-and-sub-symbolic-components">&#182;</a></h1><p>ACT-R is a good fit for modeling linguistic phenomena because it is a <em>hybrid</em> architecture.</p>
+<p>This means that it combines both symbolic and sub-symbolic components.</p>
+<p>The symbolic components allow us to incorporate competence theories in a fiarly straightforward fashion.</p>
+<p>Subsymbolic components enable the resulting models to make detailed quantitative predictions for performance, that we can check against experimental data.</p>
+<p>If it meets this promise, then this model constitutes a linking theory, and that's exciting! N.b. in this chapter the authors only introduce the symbolic components.</p>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Knowledge-in-ACT-R">Knowledge in ACT-R<a class="anchor-link" href="#Knowledge-in-ACT-R">&#182;</a></h1><p>There are two types of knowledge in ACT-R:</p>
+<ul>
+<li><em>Declarative knowledge</em></li>
+<li><em>Prodedural knowledge</em></li>
+</ul>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Declarative-knowledge">Declarative knowledge<a class="anchor-link" href="#Declarative-knowledge">&#182;</a></h1><p>At a high level of abstraction, declarative knowledge is our knowledge of <em>facts</em>.</p>
+<p>In philosophical terms, declarative knowledge corresponds to "knowing what" (as opposed to "knowing how").</p>
+<p>In the model, declarative knowledge is encoded in a mathematical construct called a <em>chunk</em>.</p>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Chunks">Chunks<a class="anchor-link" href="#Chunks">&#182;</a></h2><p>Chunks are attribute-value lists, although in ACT-R, we call the attributes <em>slots</em>.</p>
+<p>If you're familiar with programming, you can think of chunks as records.</p>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="A-straightforward-example">A straightforward example<a class="anchor-link" href="#A-straightforward-example">&#182;</a></h2><p>We can model lexical knowledge in ACT-R via chunks. For example, we can model knowledge of the word <em>car</em> as a chunk of type WORD, with:</p>
+<ul>
+<li>the value "car" for the slot FORM.</li>
+<li>the value $[\lambda x\,.\,\mathsf{car}(x)]$ for the slot MEANING.</li>
+<li>the value 'noun' for the slot CATEGORY.</li>
+<li>the value 'sg' for the slot NUMBER.</li>
+</ul>
+
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="img/word.png" alt=""></p>
+
+</div>
+</div>
+</div></div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="img/av.png" alt="The standard representation as an attribute-value matrix"></p>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Procedural-memory">Procedural memory<a class="anchor-link" href="#Procedural-memory">&#182;</a></h1><ul>
+<li>In ACT-R procedural memory is modelled as a production - where a "production" is simply a conditional statement.</li>
+<li>Productions describe actions that take place if a set of preconditions are satisfied.</li>
+<li>We can think of productions as (precondition,action) pairs.</li>
+</ul>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="A-straightforward-example">A straightforward example<a class="anchor-link" href="#A-straightforward-example">&#182;</a></h2><p>We might want to model knowledge of number agreement in English via procedural memory.</p>
+<p>"If the number slot of the subject NP in the sentence currently under construction has the value sg (precondition), then check that the number slot of the main verb also has the value sg (action)."</p>
+
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As noted by B&amp;D, technically we'd need another, seperate rule for plural agreement, but this seems to missing an omportant generalization.</p>
+<p>In ACT-R, we can have variables that scope within productions, i.e.</p>
+<p>"If the number slot of the subject NP in the sentence currently under construction has the value <code>=x</code>, then check that the number slot of the main verb also has the value <code>=x</code>."</p>
+<p>In this way, ACT-R allows us to state generalizations directly as productions.</p>
+
+</div>
+</div>
+</div></div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Getting-our-hands-dirty">Getting our hands dirty<a class="anchor-link" href="#Getting-our-hands-dirty">&#182;</a></h1><p>What you'll need:</p>
+<ul>
+<li>A python environment with <code>pyactr</code> installed - and, optionally, <code>ipython</code> if you want an interactive environment like the one i'm using here.</li>
+<li>You can find the code used to generate this notebook, which includes jupyter, ipython, and <code>pyactr</code> here: <a href="https://github.com/patrl/actr-notebook">https://github.com/patrl/actr-notebook</a></li>
+<li>A straightforward way of reproducing the environment i'm using here is to take the <code>poetry.lock</code> file from my repository, copy it to a directory, and do <code>poetry install</code> (you'll need the python dependency manager <code>poetry</code> (<a href="https://python-poetry.org/">https://python-poetry.org/</a>).</li>
+</ul>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="The-basics:-declaring-chunks">The basics: declaring chunks<a class="anchor-link" href="#The-basics:-declaring-chunks">&#182;</a></h1><p>To use <code>pyactr</code> we first need to import the package:</p>
 
 </div>
 </div>
@@ -13219,15 +13454,17 @@ a.anchor-link {
 </div>
 </div>
 
-</div></div><div class="fragment">
+</div></div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's first declare a chunk type to model the lexicon. The <code>chunktype</code> function creates a type <code>word</code> with some slots, seperated by commas.</p>
+<p>Chunks are <em>typed</em> - before introducing a chunk, we need to specify a chunk type and the slots it contains. This is just good housekeeping.</p>
+<p>Let's first declare a chunk type to model lexical knowledge.</p>
+<p>The <code>chunktype</code> function creates a type <code>word</code> with some slots, seperated by commas.</p>
 
 </div>
 </div>
-</div></div></section></section><section><section>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
@@ -13240,7 +13477,7 @@ a.anchor-link {
 </div>
 </div>
 
-</div></section></section><section><section>
+</div></div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13255,7 +13492,7 @@ a.anchor-link {
 
 </div>
 </div>
-</div></section></section><section><section>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
@@ -13293,22 +13530,45 @@ a.anchor-link {
 </div>
 </div>
 
-</div></section></section><section><section>
+</div></div><div class="fragment">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>N.b. that chunks can be extended with new slots not originally present in the chunk type declaration.</p>
+<p>N.b. python prints the slots in alphabetical order. This is because chunks are <em>unordered</em> sets of slot-value pairs, and python defaults to alphabetical order when printing.</p>
+
+</div>
+</div>
+</div></div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="An-aside-on-types">An aside on types<a class="anchor-link" href="#An-aside-on-types">&#182;</a></h1><p>Specifying chunk types is really just good housekeeping, but in actual fact optional.</p>
+<p>In ACT-R, type names have no theoretical significance - chunk types are are identified by the sloots they contain. This means that the following chunks are <em>identical</em>.</p>
+<ul>
+<li><code>word(category= noun, form= car, meaning= [[car]], number= sg)</code></li>
+<li><code>lexeme(category= noun, form= car, meaning= [[car]], number= sg)</code></li>
+</ul>
 
 </div>
 </div>
 </div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Extending-chunks">Extending chunks<a class="anchor-link" href="#Extending-chunks">&#182;</a></h1><p>Chunks can be extended with new slots not originally present in the chunk type declaration.</p>
+<p><code>carLexeme2</code> is like <code>carLexeme</code>, but extended with a new slot <code>synfunction</code>.</p>
+<p>The evaluator will output a warning, but everything will proceed just fine.</p>
+
+</div>
+</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">carLexeme2</span> <span class="o">=</span> <span class="n">actr</span><span class="o">.</span><span class="n">makechunk</span><span class="p">(</span><span class="n">nameofchunk</span><span class="o">=</span><span class="s2">&quot;car1&quot;</span><span class="p">,</span>
-                          <span class="n">typename</span><span class="o">=</span><span class="s2">&quot;word&quot;</span><span class="p">,</span>
+                            <span class="n">typename</span><span class="o">=</span><span class="s2">&quot;word&quot;</span><span class="p">,</span>
                           <span class="n">form</span><span class="o">=</span><span class="s2">&quot;car&quot;</span><span class="p">,</span>
                           <span class="n">meaning</span><span class="o">=</span><span class="s2">&quot;[[car]]&quot;</span><span class="p">,</span>
                           <span class="n">category</span><span class="o">=</span><span class="s2">&quot;noun&quot;</span><span class="p">,</span>
@@ -13339,16 +13599,16 @@ a.anchor-link {
 </div>
 </div>
 
-</div></section></section><section><section>
+</div></div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The <code>chunkstring</code> function is an alternative method for declaring a new chunk:</p>
+<h1 id="An-alternative-method-for-specifying-chunks">An alternative method for specifying chunks<a class="anchor-link" href="#An-alternative-method-for-specifying-chunks">&#182;</a></h1><p>The <code>chunkstring</code> function is an alternative method for declaring a new chunk:</p>
 <p>(n.b. triple quotation in python indicates that a string can appear on more than one line.)</p>
 
 </div>
 </div>
-</div></section></section><section><section>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
@@ -13388,11 +13648,11 @@ a.anchor-link {
 </div>
 </div>
 
-</div></section></section><section><section>
+</div></div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Treating chunks as attribute value sets induces natural notions of equality and implication. The standard python comparison operators are overloaded to reflect this.</p>
+<h1 id="Equality-and-implication">Equality and implication<a class="anchor-link" href="#Equality-and-implication">&#182;</a></h1><p>Treating chunks as attribute value sets induces natural notions of equality and implication. The standard python comparison operators are overloaded to reflect this.</p>
 <p>N.b. the chunk type is completely ignored for the purpose of these comparisons; the chunk type is just syntactic sugar for human modellers, it has no status in the theory of ACT-R.</p>
 
 </div>
@@ -13401,6 +13661,99 @@ a.anchor-link {
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">carLexeme</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>word(category= noun, form= car, meaning= [[car]], number= sg)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">carLexeme2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>word(category= noun, form= car, meaning= [[car]], number= sg, synfunction= subj)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div></div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">carLexeme3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>word(category= noun, form= car, meaning= [[car]], number= sg, synfunction= subj)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div></div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">carLexeme2</span> <span class="o">==</span> <span class="n">carLexeme3</span>
@@ -13416,7 +13769,7 @@ a.anchor-link {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[6]:</div>
+    <div class="prompt output_prompt">Out[9]:</div>
 
 
 
@@ -13430,117 +13783,13 @@ a.anchor-link {
 </div>
 </div>
 
-</div></section></section><section><section>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">carLexeme</span> <span class="o">==</span> <span class="n">carLexeme2</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[7]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>False</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div></section></section><section><section>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">carLexeme</span> <span class="o">&lt;</span> <span class="n">carLexeme2</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[8]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>True</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Beyond-arbitrary-chunks">Beyond arbitrary chunks<a class="anchor-link" href="#Beyond-arbitrary-chunks">&#182;</a></h2>
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>We're going to build an extremely simple mind that can do subject agreement. First, let's build a container for a mind (a model).</p>
-
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">agreement</span> <span class="o">=</span> <span class="n">actr</span><span class="o">.</span><span class="n">ACTRModel</span> <span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>For convenience, any model comes with a declarative memory module with an empty retrieval buffer. Modules are attributes of models.</p>
-
-</div>
-</div>
-</div></section></section><section><section>
+</div></div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">agreement</span><span class="o">.</span><span class="n">decmem</span>
-<span class="n">agreement</span><span class="o">.</span><span class="n">goal</span>
-<span class="n">agreement</span><span class="o">.</span><span class="n">retrieval</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">carLexeme</span> <span class="o">==</span> <span class="n">carLexeme2</span>
 </pre></div>
 
     </div>
@@ -13559,6 +13808,178 @@ a.anchor-link {
 
 
 <div class="output_text output_subarea output_execute_result">
+<pre>False</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div></div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">carLexeme</span> <span class="o">&lt;</span> <span class="n">carLexeme2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[11]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div></div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Modules-and-buffers">Modules and buffers<a class="anchor-link" href="#Modules-and-buffers">&#182;</a></h1><p>Now we can declare chunks, but what can we do with them?</p>
+<p>Chunks don't live in a vacuum, but rather are part of an ACT-R mind (an instantiation of the ACT-R architecture).</p>
+<p>Minds are made up of <em>modules</em> and <em>buffers</em>.</p>
+<p>Modules each serve a different mental function, but cannot be accessed or updated directly. Rather I/O operations on modules are via an intermediary - the associated buffer.</p>
+<p>Each module comes equipped with one such buffer.</p>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Serial-vs.-parallel-components">Serial vs. parallel components<a class="anchor-link" href="#Serial-vs.-parallel-components">&#182;</a></h1><p>A central feature of ACT-R is that each buffer can only carry a single chunk at any given time.</p>
+<p>For example, the declarative memory module is associated with a buffer - the <em>retrieval</em> buffer.</p>
+<p>Internally, the module supports massively parallel processes; all chunks can be simultaneously checked against a cue.</p>
+<p>Externally, the module can only be accessed by serially placing one cue at a time in its associated retrieval buffer.</p>
+<p>In ACT-R actual cognitive behavior is modelled by combining serial and parallel components in specific ways.</p>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="The-procedural-memory-module">The procedural memory module<a class="anchor-link" href="#The-procedural-memory-module">&#182;</a></h1><p>The flow of information in the mind is driven by productions, which dictate transactions between modules and associated buffers.</p>
+<p>Remember that productions are stored in procedural memory, itself a module. In this chapter, we primarily look at the interaction between declarative and procedural memory.</p>
+<p>Since cognition is driven by productions, the procedural memory module is asumed to be always present in any given mind; it doesn't have to be explicitly declared.</p>
+<p>The buffer associated with this module is called the <strong>goal</strong> buffer, and it plays a hugely important role in ACT-R models.</p>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Building-a-mind">Building a mind<a class="anchor-link" href="#Building-a-mind">&#182;</a></h1><p>We're going to build an extremely simple mind that can do subject agreement.</p>
+<p>First, let's build a container for a mind (a model).</p>
+
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">agreement</span> <span class="o">=</span> <span class="n">actr</span><span class="o">.</span><span class="n">ACTRModel</span> <span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div></div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For convenience, any model comes with a declarative memory module with an empty retrieval buffer. Modules are attributes of models.</p>
+
+</div>
+</div>
+</div></div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>These modules and buffers start out empty.</p>
+
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">agreement</span><span class="o">.</span><span class="n">decmem</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[13]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div></div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">agreement</span><span class="o">.</span><span class="n">goal</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[14]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
 <pre>set()</pre>
 </div>
 
@@ -13567,7 +13988,40 @@ a.anchor-link {
 </div>
 </div>
 
-</div></section></section><section><section>
+</div></div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">agreement</span><span class="o">.</span><span class="n">retrieval</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[15]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>set()</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div></div><div class="fragment">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13575,10 +14029,10 @@ a.anchor-link {
 
 </div>
 </div>
-</div></section></section><section><section>
+</div></div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">dm</span> <span class="o">=</span> <span class="n">agreement</span><span class="o">.</span><span class="n">decmem</span>
@@ -13588,21 +14042,40 @@ a.anchor-link {
 </div>
 </div>
 
-</div></section></section><section><section>
+</div></div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We can invoke the <code>add</code> method associated with the declarative memory module in order to add chunks to declarative memory.</p>
+<h1 id="Adding-chunks-to-declarative-memory">Adding chunks to declarative memory<a class="anchor-link" href="#Adding-chunks-to-declarative-memory">&#182;</a></h1><p>We can invoke the <code>add</code> method associated with the declarative memory module in order to add chunks to declarative memory.</p>
 
 </div>
 </div>
-</div></section></section><section><section>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dm</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">carLexeme2</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">carLexeme</span> <span class="o">=</span> <span class="n">actr</span><span class="o">.</span><span class="n">makechunk</span><span class="p">(</span>
+    <span class="n">nameofchunk</span><span class="o">=</span><span class="s2">&quot;car&quot;</span><span class="p">,</span>
+    <span class="n">typename</span><span class="o">=</span><span class="s2">&quot;word&quot;</span><span class="p">,</span>
+    <span class="n">meaning</span><span class="o">=</span><span class="s2">&quot;[[car]]&quot;</span><span class="p">,</span>
+    <span class="n">category</span><span class="o">=</span><span class="s2">&quot;noun&quot;</span><span class="p">,</span>
+    <span class="n">number</span><span class="o">=</span><span class="s2">&quot;sg&quot;</span><span class="p">,</span>
+    <span class="n">synfunction</span><span class="o">=</span><span class="s2">&quot;subject&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div></div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dm</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">carLexeme</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">dm</span><span class="p">)</span>
 </pre></div>
 
@@ -13620,7 +14093,7 @@ a.anchor-link {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{word(category= noun, form= car, meaning= [[car]], number= sg, synfunction= subj): array([0.])}
+<pre>{word(category= noun, form= , meaning= [[car]], number= sg, synfunction= subject): array([0.])}
 </pre>
 </div>
 </div>
@@ -13628,7 +14101,7 @@ a.anchor-link {
 </div>
 </div>
 
-</div></section></section><section><section>
+</div></div><div class="fragment">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13636,17 +14109,17 @@ a.anchor-link {
 
 </div>
 </div>
-</div></section></section><section><section>
+</div></div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In order to model subject-verb agreement, we're going to be making some simplifying assumptions. We won't say anything about how parsing works, just assume that declarative memory already contains the suvject  of the clause, and the current verb is present in the goal buffer.</p>
+<h1 id="Modeling-subject-verb-agreement">Modeling subject-verb agreement<a class="anchor-link" href="#Modeling-subject-verb-agreement">&#182;</a></h1><p>In order to model subject-verb agreement, we're going to be making some simplifying assumptions. We won't say anything about how parsing works, just assume that declarative memory already contains the subject  of the clause, and the current verb is present in the goal buffer.</p>
 <p>We're going to need three productions in procedural memory:</p>
-<ul>
+<ol>
 <li>if the goal has a verb chunk, and the current task is to agree, then retrieve the subject.</li>
 <li>If the number of the subject is <code>=x</code>, then the number of the verb in the goal should also be <code>=x</code>.</li>
 <li>If the verb is assigned a number, the task is done.</li>
-</ul>
+</ol>
 
 </div>
 </div>
@@ -13654,21 +14127,29 @@ a.anchor-link {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Noun-retrieval">Noun retrieval<a class="anchor-link" href="#Noun-retrieval">&#182;</a></h3>
+<h1 id="Writing-productions:-noun-retrieval">Writing productions: noun retrieval<a class="anchor-link" href="#Writing-productions:-noun-retrieval">&#182;</a></h1><p>Productions are created by the method <code>productionstring</code>.</p>
+<p>The <code>==&gt;</code> acts as a seperator between the preconditions and the actions.</p>
+<p>Preconditions are specified for two buffers.</p>
+<ul>
+<li><code>=g&gt;</code> indicates the target buffer (<code>g</code>: the <em>goal</em> buffer), and the type of precondition this buffer has to satisfy (<code>=</code>: subsumption; this is highly confusing!). So, the chunk currently stored in the goal buffer must be subsumed by the chunk characterised on the following lines. .</li>
+<li><code>?retrieval&gt;</code> checks whether the retrieval buffer is in a certain state. The <code>?</code> symbol indicates that we're interested in the state of the buffer, not the chunk inside of it. The buffer must be empty for this precondition to be satisfied.</li>
+</ul>
+<p>In general we can use <code>?</code> to submit a variety of queries regarding the state of buffers.</p>
+
+<pre><code>agreement.productionstring(name="retrieve", string="""
+    =g&gt;
+    isa goal_lexeme
+    category verb
+    task agree
+    ?retrieval&gt;
+    buffer empty</code></pre>
+
 </div>
 </div>
 </div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Productions are created by the method <code>productionstring</code>.</p>
-<p>The <code>==&gt;</code> acts as a seperator between the preconditions and the actions.</p>
-<p>Preconditions are specified for two buffers.</p>
-<ul>
-<li><code>=g&gt;</code> indicates the target buffer (<code>g</code>: the <em>goal</em> buffer), and the type of precondition this buffer has to satisfy (<code>=</code>: subsumption; this is highly confusing). So, the chunk currently stored in the goal buffer must be subsumed by the chunk characterised on the following lines. Since the precondition is stated as subsumption, the chunk in the goal buffer could have other slot value pairs (how do we square this with subsumption?).</li>
-<li><code>?retrieval&gt;</code> checks whether the retrieval buffer is in a certain state. The <code>?</code> symbol indicates that we're interested in the state of the buffer, not the chunk inside of it. The buffer must be empty for this precondition to be satisfied.</li>
-</ul>
-<p>In general we can use <code>?</code> to submit a variety of queries regarding the state of buffers.</p>
 <p>If the preconditions are both met, two actions are triggered.</p>
 <ul>
 <li>The current task of the <code>goal_lexeme</code> chunk is changed to <code>trigger_agreement</code>. This isn' reflected in the book, but it looks like this is really the only thing that needs to be specified.</li>
@@ -13677,10 +14158,10 @@ a.anchor-link {
 
 </div>
 </div>
-</div></section></section><section><section>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">actr</span><span class="o">.</span><span class="n">chunktype</span><span class="p">(</span><span class="s2">&quot;goal_lexeme&quot;</span><span class="p">,</span><span class="s2">&quot;category, task&quot;</span><span class="p">)</span>
@@ -13714,7 +14195,7 @@ a.anchor-link {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[13]:</div>
+    <div class="prompt output_prompt">Out[19]:</div>
 
 
 
@@ -13730,27 +14211,61 @@ a.anchor-link {
 </div>
 </div>
 
-</div></section></section><section><section>
+</div></div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Agreement">Agreement<a class="anchor-link" href="#Agreement">&#182;</a></h3><p>We now define a second production rule to actually perform the agreement. This comes with two preconditions that check that we are in the correct state:</p>
+<h3 id="Triggering-agreement">Triggering agreement<a class="anchor-link" href="#Triggering-agreement">&#182;</a></h3><p>We now define a second production rule to actually perform the agreement. This comes with two preconditions that check that we are in the correct state:</p>
 <ul>
 <li>The chunk in the goal buffer is subsumed by the chunk described here.</li>
 <li>The chunk in the retrieval buffer is subsumed by the chunk described here.</li>
 </ul>
+
+<pre><code>agreement.productionstring(name="agree", string="""
+    =g&gt;
+    isa goal_lexeme
+    task trigger_agreement
+    category verb
+    =retrieval&gt;
+    isa word
+    category noun
+    synfunction subject
+    number =x</code></pre>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>If we're in the correct state, the action is triggered:</p>
 <ul>
 <li>the chunk in the goal buffer is <em>updated</em> such that a new number specification is added, which matches the one on the subject noun we retrieved from declarative memory.</li>
 <li>The task is marked as done.</li>
 </ul>
 
+<pre><code>   ==&gt;
+    =g&gt;
+    isa goal_lexeme
+    category verb
+    number =x
+    task done
+    """)</code></pre>
+
 </div>
 </div>
 </div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The full production:</p>
+
+</div>
+</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">agreement</span><span class="o">.</span><span class="n">productionstring</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;agree&quot;</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
@@ -13782,13 +14297,25 @@ a.anchor-link {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[15]:</div>
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/nix/store/x26x643i7wrljvcd2c9zkdd89f4mvzxa-python3-3.7.7-env/lib/python3.7/site-packages/pyactr/chunks.py:130: UserWarning: Chunk type goal_lexeme is extended with new attributes
+  warnings.warn(&#34;Chunk type %s is extended with new attributes&#34; % typename)
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[20]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;=g&#39;: goal_lexeme(category= verb, number= , task= trigger_agreement), &#39;=retrieval&#39;: word(category= noun, form= , meaning= , number= =x, synfunction= subject)}
+<pre>{&#39;=g&#39;: goal_lexeme(category= verb, task= trigger_agreement), &#39;=retrieval&#39;: word(category= noun, form= , meaning= , number= =x, synfunction= subject)}
 ==&gt;
 {&#39;=g&#39;: goal_lexeme(category= verb, number= =x, task= done)}</pre>
 </div>
@@ -13798,18 +14325,19 @@ a.anchor-link {
 </div>
 </div>
 
-</div></section></section><section><section>
+</div></div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Clean-up">Clean-up<a class="anchor-link" href="#Clean-up">&#182;</a></h3><p>The final production rule mops things up, flushing the goal buffer.</p>
+<p><code>~g&gt;</code> discards the chunk in the goal buffer.</p>
 
 </div>
 </div>
-</div></section></section><section><section>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">agreement</span><span class="o">.</span><span class="n">productionstring</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;done&quot;</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
@@ -13817,8 +14345,7 @@ a.anchor-link {
 <span class="s2">isa goal_lexeme</span>
 <span class="s2">task done</span>
 <span class="s2">==&gt;</span>
-<span class="s2">~g&gt;</span>
-<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="s2">~g&gt;&quot;&quot;&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13831,7 +14358,7 @@ a.anchor-link {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[16]:</div>
+    <div class="prompt output_prompt">Out[21]:</div>
 
 
 
@@ -13847,25 +14374,35 @@ a.anchor-link {
 </div>
 </div>
 
-</div></section></section><section><section>
+</div></div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Running-the-model">Running the model<a class="anchor-link" href="#Running-the-model">&#182;</a></h2>
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>To get things off the ground, we need to add a goal lexeme to the goal buffer. Since according to ACT-R, higher cognition is goal driven, nothing will happen in the absence of a goal.</p>
+<p><img src="img/precon.png" alt=""></p>
 
 </div>
 </div>
 </div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="img/action.png" alt=""></p>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Running-the-model">Running the model<a class="anchor-link" href="#Running-the-model">&#182;</a></h2><p>To get things off the ground, we need to add a goal lexeme to the goal buffer.</p>
+<p>Since according to ACT-R, higher cognition is goal driven, nothing will happen in the absence of a goal.</p>
+
+</div>
+</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">actr</span><span class="o">.</span><span class="n">chunktype</span><span class="p">(</span><span class="s2">&quot;goal_lexeme&quot;</span><span class="p">,</span> <span class="s2">&quot;task, category, number&quot;</span><span class="p">)</span>
@@ -13888,7 +14425,7 @@ a.anchor-link {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[17]:</div>
+    <div class="prompt output_prompt">Out[22]:</div>
 
 
 
@@ -13902,10 +14439,18 @@ a.anchor-link {
 </div>
 </div>
 
-</div></section></section><section><section>
+</div></div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can now run the model by invoking the <code>simulation</code> method. The output of the <code>run()</code> command is the temporal trace of our model simulation.</p>
+
+</div>
+</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">agreement_sim</span> <span class="o">=</span> <span class="n">agreement</span><span class="o">.</span><span class="n">simulation</span><span class="p">()</span>
@@ -13915,20 +14460,10 @@ a.anchor-link {
 </div>
 </div>
 
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>TODO the following currently doesn't deliver the expected results.</li>
-</ul>
-
-</div>
-</div>
-</div></section></section><section><section>
+</div></div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">agreement_sim</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
@@ -13955,9 +14490,18 @@ a.anchor-link {
 (0.05, &#39;retrieval&#39;, &#39;START RETRIEVAL&#39;)
 (0.05, &#39;PROCEDURAL&#39;, &#39;CONFLICT RESOLUTION&#39;)
 (0.05, &#39;PROCEDURAL&#39;, &#39;NO RULE FOUND&#39;)
-(0.1, &#39;retrieval&#39;, &#39;RETRIEVED: None&#39;)
+(0.1, &#39;retrieval&#39;, &#39;CLEARED&#39;)
+(0.1, &#39;retrieval&#39;, &#39;RETRIEVED: word(category= noun, form= , meaning= [[car]], number= sg, synfunction= subject)&#39;)
 (0.1, &#39;PROCEDURAL&#39;, &#39;CONFLICT RESOLUTION&#39;)
-(0.1, &#39;PROCEDURAL&#39;, &#39;NO RULE FOUND&#39;)
+(0.1, &#39;PROCEDURAL&#39;, &#39;RULE SELECTED: agree&#39;)
+(0.15, &#39;PROCEDURAL&#39;, &#39;RULE FIRED: agree&#39;)
+(0.15, &#39;g&#39;, &#39;MODIFIED&#39;)
+(0.15, &#39;PROCEDURAL&#39;, &#39;CONFLICT RESOLUTION&#39;)
+(0.15, &#39;PROCEDURAL&#39;, &#39;RULE SELECTED: done&#39;)
+(0.2, &#39;PROCEDURAL&#39;, &#39;RULE FIRED: done&#39;)
+(0.2, &#39;g&#39;, &#39;CLEARED&#39;)
+(0.2, &#39;PROCEDURAL&#39;, &#39;CONFLICT RESOLUTION&#39;)
+(0.2, &#39;PROCEDURAL&#39;, &#39;NO RULE FOUND&#39;)
 </pre>
 </div>
 </div>
@@ -13965,7 +14509,7 @@ a.anchor-link {
 </div>
 </div>
 
-</div></section></section><section><section>
+</div></div><div class="fragment">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13973,36 +14517,787 @@ a.anchor-link {
 
 </div>
 </div>
-</div></section></section><section><section>
+</div></div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="More-examples">More examples<a class="anchor-link" href="#More-examples">&#182;</a></h1>
+<h1 id="The-counting-model">The counting model<a class="anchor-link" href="#The-counting-model">&#182;</a></h1><h2 id="The-task">The task<a class="anchor-link" href="#The-task">&#182;</a></h2><ul>
+<li>Given an initial number $n$, and a final number $m$, increment $n$ until $m$ is reached.</li>
+</ul>
+
 </div>
 </div>
 </div></section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="The-counting-model">The counting model<a class="anchor-link" href="#The-counting-model">&#182;</a></h2><h3 id="The-task">The task<a class="anchor-link" href="#The-task">&#182;</a></h3><ul>
-<li>Given an initial number $n$, and a final number $m$, increment $n$ until $m$ is reached.</li>
+<h2 id="Chunks">Chunks<a class="anchor-link" href="#Chunks">&#182;</a></h2><p>We're going to need two chunk types to model the kind of information stored:</p>
+<ul>
+<li><code>countOrder</code> stores the initial number and the end point, as a pair.</li>
+<li><code>countFrom</code> stores the current state of the counting process.</li>
 </ul>
 
 </div>
 </div>
-</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">counting</span> <span class="o">=</span> <span class="n">actr</span><span class="o">.</span><span class="n">ACTRModel</span><span class="p">()</span>
+<span class="n">actr</span><span class="o">.</span><span class="n">chunktype</span><span class="p">(</span><span class="s2">&quot;countOrder&quot;</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;first&quot;</span><span class="p">,</span><span class="s2">&quot;second&quot;</span><span class="p">))</span>
+<span class="n">actr</span><span class="o">.</span><span class="n">chunktype</span><span class="p">(</span><span class="s2">&quot;countFrom&quot;</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="s2">&quot;count&quot;</span><span class="p">))</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
+</div></div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Counting-from-2-to-4">Counting from 2 to 4<a class="anchor-link" href="#Counting-from-2-to-4">&#182;</a></h2><p>We can simulate counting from 2 to 4 by encoding these parameters in the goal buffer:</p>
+
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">counting</span><span class="o">.</span><span class="n">goal</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">actr</span><span class="o">.</span><span class="n">chunkstring</span><span class="p">(</span><span class="n">string</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">isa countFrom</span>
+<span class="s2">start 2</span>
+<span class="s2">end 4</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div></div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>next we store counting knowledge in declarative memory. In the example given, we have to store information about what is the successor of what.</p>
+<p>...this is a bit tedious.</p>
+
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dm</span> <span class="o">=</span> <span class="n">counting</span><span class="o">.</span><span class="n">decmem</span>
+
+<span class="n">dm</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">actr</span><span class="o">.</span><span class="n">chunkstring</span><span class="p">(</span><span class="n">string</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">isa countOrder</span>
+<span class="s2">first 1</span>
+<span class="s2">second 2</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">))</span>
+
+<span class="n">dm</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">actr</span><span class="o">.</span><span class="n">chunkstring</span><span class="p">(</span><span class="n">string</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">isa countOrder</span>
+<span class="s2">first 2</span>
+<span class="s2">second 3</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">))</span>
+
+<span class="n">dm</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">actr</span><span class="o">.</span><span class="n">chunkstring</span><span class="p">(</span><span class="n">string</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">isa countOrder</span>
+<span class="s2">first 3</span>
+<span class="s2">second 4</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">))</span>
+
+<span class="n">dm</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">actr</span><span class="o">.</span><span class="n">chunkstring</span><span class="p">(</span><span class="n">string</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">isa countOrder</span>
+<span class="s2">first 4</span>
+<span class="s2">second 5</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div></div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Finally, the model has three rules:</p>
+<ul>
+<li><code>start</code></li>
+<li><code>incremement</code></li>
+<li><code>stop</code></li>
+</ul>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="start"><code>start</code><a class="anchor-link" href="#start">&#182;</a></h2><h3 id="Preconditions">Preconditions<a class="anchor-link" href="#Preconditions">&#182;</a></h3><ul>
+<li>The goal buffer has a chunk that has no value for the <code>count</code> slot.</li>
+<li>The slot <code>start</code> has the value <code>=x</code> (this is trivially satisfied).</li>
+</ul>
+<h3 id="Actions">Actions<a class="anchor-link" href="#Actions">&#182;</a></h3><ul>
+<li>In tthe goal buffer, the value of <code>count</code> is assigned the value of the variable <code>=x</code>.</li>
+<li>We place a retrieval request for a declarative memory chunk that has the value <code>=x</code> in the slot first (the successor).</li>
+</ul>
+
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">counting</span><span class="o">.</span><span class="n">productionstring</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">=g&gt;</span>
+<span class="s2">isa countFrom</span>
+<span class="s2">start =x</span>
+<span class="s2">count None</span>
+<span class="s2">==&gt;</span>
+<span class="s2">=g&gt;</span>
+<span class="s2">isa countFrom</span>
+<span class="s2">count =x</span>
+<span class="s2">+retrieval&gt;</span>
+<span class="s2">isa countOrder</span>
+<span class="s2">first =x</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[28]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;=g&#39;: countFrom(count= None, end= , start= =x)}
+==&gt;
+{&#39;=g&#39;: countFrom(count= =x, end= , start= ), &#39;+retrieval&#39;: countOrder(first= =x, second= )}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div></div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="increment"><code>increment</code><a class="anchor-link" href="#increment">&#182;</a></h2><h3 id="Preconditions">Preconditions<a class="anchor-link" href="#Preconditions">&#182;</a></h3><ul>
+<li>The value of <code>count</code> in the goal buffer doesn't match the final <code>end</code> value (<code>~</code> is negation).</li>
+<li>The retrieval buffer carries a chunk whose <code>first</code> value matches the <code>count</code> value in the goal buffer.</li>
+</ul>
+<h3 id="Actions">Actions<a class="anchor-link" href="#Actions">&#182;</a></h3><ul>
+<li>Update the current <code>count</code> value with the value of its successor.</li>
+<li>Place a retrieval request for the next increment.</li>
+</ul>
+
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">counting</span><span class="o">.</span><span class="n">productionstring</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;increment&quot;</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    =g&gt;</span>
+<span class="s2">    isa     countFrom</span>
+<span class="s2">    count   =x</span>
+<span class="s2">    end     ~=x</span>
+<span class="s2">    =retrieval&gt;</span>
+<span class="s2">    isa     countOrder</span>
+<span class="s2">    first   =x</span>
+<span class="s2">    second  =y</span>
+<span class="s2">    ==&gt;</span>
+<span class="s2">    =g&gt;</span>
+<span class="s2">    isa     countFrom</span>
+<span class="s2">    count   =y</span>
+<span class="s2">    +retrieval&gt;</span>
+<span class="s2">    isa     countOrder</span>
+<span class="s2">    first   =y</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[29]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;=g&#39;: countFrom(count= =x, end= ~=x, start= ), &#39;=retrieval&#39;: countOrder(first= =x, second= =y)}
+==&gt;
+{&#39;=g&#39;: countFrom(count= =y, end= , start= ), &#39;+retrieval&#39;: countOrder(first= =y, second= )}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div></div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="stop"><code>stop</code><a class="anchor-link" href="#stop">&#182;</a></h2><p>If the current count matches the final number, clear the goal buffer.</p>
+
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">counting</span><span class="o">.</span><span class="n">productionstring</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;stop&quot;</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    =g&gt;</span>
+<span class="s2">    isa     countFrom</span>
+<span class="s2">    count   =x</span>
+<span class="s2">    end     =x</span>
+<span class="s2">    ==&gt;</span>
+<span class="s2">    ~g&gt;</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[30]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;=g&#39;: countFrom(count= =x, end= =x, start= )}
+==&gt;
+{&#39;~g&#39;: None}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div></div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Running-the-model">Running the model<a class="anchor-link" href="#Running-the-model">&#182;</a></h1>
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">counting_sim</span> <span class="o">=</span> <span class="n">counting</span><span class="o">.</span><span class="n">simulation</span><span class="p">()</span>
+<span class="n">counting_sim</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>(0, &#39;PROCEDURAL&#39;, &#39;CONFLICT RESOLUTION&#39;)
+(0, &#39;PROCEDURAL&#39;, &#39;RULE SELECTED: start&#39;)
+(0.05, &#39;PROCEDURAL&#39;, &#39;RULE FIRED: start&#39;)
+(0.05, &#39;g&#39;, &#39;MODIFIED&#39;)
+(0.05, &#39;retrieval&#39;, &#39;START RETRIEVAL&#39;)
+(0.05, &#39;PROCEDURAL&#39;, &#39;CONFLICT RESOLUTION&#39;)
+(0.05, &#39;PROCEDURAL&#39;, &#39;NO RULE FOUND&#39;)
+(0.1, &#39;retrieval&#39;, &#39;CLEARED&#39;)
+(0.1, &#39;retrieval&#39;, &#39;RETRIEVED: countOrder(first= 2, second= 3)&#39;)
+(0.1, &#39;PROCEDURAL&#39;, &#39;CONFLICT RESOLUTION&#39;)
+(0.1, &#39;PROCEDURAL&#39;, &#39;RULE SELECTED: increment&#39;)
+(0.15, &#39;PROCEDURAL&#39;, &#39;RULE FIRED: increment&#39;)
+(0.15, &#39;g&#39;, &#39;MODIFIED&#39;)
+(0.15, &#39;retrieval&#39;, &#39;START RETRIEVAL&#39;)
+(0.15, &#39;PROCEDURAL&#39;, &#39;CONFLICT RESOLUTION&#39;)
+(0.15, &#39;PROCEDURAL&#39;, &#39;NO RULE FOUND&#39;)
+(0.2, &#39;retrieval&#39;, &#39;CLEARED&#39;)
+(0.2, &#39;retrieval&#39;, &#39;RETRIEVED: countOrder(first= 3, second= 4)&#39;)
+(0.2, &#39;PROCEDURAL&#39;, &#39;CONFLICT RESOLUTION&#39;)
+(0.2, &#39;PROCEDURAL&#39;, &#39;RULE SELECTED: increment&#39;)
+(0.25, &#39;PROCEDURAL&#39;, &#39;RULE FIRED: increment&#39;)
+(0.25, &#39;g&#39;, &#39;MODIFIED&#39;)
+(0.25, &#39;retrieval&#39;, &#39;START RETRIEVAL&#39;)
+(0.25, &#39;PROCEDURAL&#39;, &#39;CONFLICT RESOLUTION&#39;)
+(0.25, &#39;PROCEDURAL&#39;, &#39;RULE SELECTED: stop&#39;)
+(0.3, &#39;retrieval&#39;, &#39;CLEARED&#39;)
+(0.3, &#39;PROCEDURAL&#39;, &#39;RULE FIRED: stop&#39;)
+(0.3, &#39;retrieval&#39;, &#39;RETRIEVED: countOrder(first= 4, second= 5)&#39;)
+(0.3, &#39;g&#39;, &#39;CLEARED&#39;)
+(0.3, &#39;PROCEDURAL&#39;, &#39;CONFLICT RESOLUTION&#39;)
+(0.3, &#39;PROCEDURAL&#39;, &#39;NO RULE FOUND&#39;)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div></div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Regular-grammars-in-ACT-R">Regular grammars in ACT-R<a class="anchor-link" href="#Regular-grammars-in-ACT-R">&#182;</a></h1><p>A (right-)regular grammar has rules of the following form:</p>
+<ul>
+<li>$X \rightarrow a\,Y$</li>
+<li>$X \rightarrow a$ </li>
+<li>$X \rightarrow \epsilon$</li>
+</ul>
+<p>Lower case variables are terminals, and upper-case variables are non-terminals.</p>
+<p>Right-regular gramars aren't expressive enough for natural languages, but make a good illustrative example.</p>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here we implement a right-regular grammar in ACT-R that generates NP constituents consisting of indefinitely long strings of nouns.</p>
+$$\mathrm{NP} \rightarrow \mathrm{N}\,\mathrm{NP}$$<p>We only need one chunk type - <code>goal_chunk</code> - which encodes the single rule in our grammar</p>
+
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">regular_grammar</span> <span class="o">=</span> <span class="n">actr</span><span class="o">.</span><span class="n">ACTRModel</span><span class="p">()</span>
+
+<span class="n">actr</span><span class="o">.</span><span class="n">chunktype</span><span class="p">(</span><span class="s2">&quot;goal_chunk&quot;</span><span class="p">,</span> <span class="s2">&quot;mother daughter1 daughter2 state&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div></div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We initialize the goal buffer to an NP <code>mother</code> node. The value of <code>state</code> will be <code>rule</code>, which signals that the rewrite rule should be triggered.</p>
+
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">regular_grammar</span><span class="o">.</span><span class="n">goal</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">actr</span><span class="o">.</span><span class="n">chunkstring</span><span class="p">(</span><span class="n">string</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">isa goal_chunk</span>
+<span class="s2">mother NP</span>
+<span class="s2">state rule</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div></div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We only need three prodecures:</p>
+<ul>
+<li>One which rewrites an NP mother node as the daughters N NP.</li>
+<li>One that prints the first daughter.</li>
+<li>One that sets the second daughter as the current node, so that the rule can apply again.</li>
+</ul>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="The-rewrite-rule">The rewrite rule<a class="anchor-link" href="#The-rewrite-rule">&#182;</a></h1>
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">regular_grammar</span><span class="o">.</span><span class="n">productionstring</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;NP ==&gt; N NP&quot;</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    =g&gt;</span>
+<span class="s2">    isa         goal_chunk</span>
+<span class="s2">    mother      NP</span>
+<span class="s2">    daughter1   None</span>
+<span class="s2">    daughter2   None</span>
+<span class="s2">    state       rule</span>
+<span class="s2">    ==&gt;</span>
+<span class="s2">    =g&gt;</span>
+<span class="s2">    isa         goal_chunk</span>
+<span class="s2">    daughter1   N</span>
+<span class="s2">    daughter2   NP</span>
+<span class="s2">    state       show</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[34]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;=g&#39;: goal_chunk(daughter1= None, daughter2= None, mother= NP, state= rule)}
+==&gt;
+{&#39;=g&#39;: goal_chunk(daughter1= N, daughter2= NP, mother= , state= show)}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div></div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="The-printing-rule">The printing rule<a class="anchor-link" href="#The-printing-rule">&#182;</a></h1>
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">regular_grammar</span><span class="o">.</span><span class="n">productionstring</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;print N&quot;</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    =g&gt;</span>
+<span class="s2">    isa         goal_chunk</span>
+<span class="s2">    state       show</span>
+<span class="s2">    ==&gt;</span>
+<span class="s2">    !g&gt;</span>
+<span class="s2">    show        daughter1</span>
+<span class="s2">    =g&gt;</span>
+<span class="s2">    isa         goal_chunk</span>
+<span class="s2">    state       rule</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[35]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;=g&#39;: goal_chunk(daughter1= , daughter2= , mother= , state= show)}
+==&gt;
+{&#39;!g&#39;: ([([&#39;show&#39;, &#39;daughter1&#39;], {})], {}), &#39;=g&#39;: goal_chunk(daughter1= , daughter2= , mother= , state= rule)}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div></div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="A-rule-to-set-the-daughter-as-the-current-node">A rule to set the daughter as the current node<a class="anchor-link" href="#A-rule-to-set-the-daughter-as-the-current-node">&#182;</a></h1>
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">regular_grammar</span><span class="o">.</span><span class="n">productionstring</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;get new mother&quot;</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    =g&gt;</span>
+<span class="s2">    isa         goal_chunk</span>
+<span class="s2">    daughter2   =x</span>
+<span class="s2">    daughter2   ~None</span>
+<span class="s2">    state       rule</span>
+<span class="s2">    ==&gt;</span>
+<span class="s2">    =g&gt;</span>
+<span class="s2">    isa         goal_chunk</span>
+<span class="s2">    mother      =x</span>
+<span class="s2">    daughter1   None</span>
+<span class="s2">    daughter2   None</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[36]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;=g&#39;: goal_chunk(daughter1= , daughter2= =x~None, mother= , state= rule)}
+==&gt;
+{&#39;=g&#39;: goal_chunk(daughter1= None, daughter2= None, mother= =x, state= )}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div></div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can now run the simulation for different oamounts  of time.</p>
+
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">regular_grammar_sim</span> <span class="o">=</span> <span class="n">regular_grammar</span><span class="o">.</span><span class="n">simulation</span><span class="p">(</span><span class="n">trace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">regular_grammar_sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>daughter1 N
+daughter1 N
+daughter1 N
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div></div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">regular_grammar_sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>daughter1 N
+daughter1 N
+daughter1 N
+daughter1 N
+daughter1 N
+daughter1 N
+daughter1 N
+daughter1 N
+daughter1 N
+daughter1 N
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div></div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can turn the trace back on (this is the default).</p>
+
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">regular_grammar_sim</span> <span class="o">=</span> <span class="n">regular_grammar</span><span class="o">.</span><span class="n">simulation</span><span class="p">()</span>
+
+<span class="n">regular_grammar_sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>(0, &#39;PROCEDURAL&#39;, &#39;CONFLICT RESOLUTION&#39;)
+(0, &#39;PROCEDURAL&#39;, &#39;RULE SELECTED: NP ==&gt; N NP&#39;)
+(0.05, &#39;PROCEDURAL&#39;, &#39;RULE FIRED: NP ==&gt; N NP&#39;)
+(0.05, &#39;g&#39;, &#39;MODIFIED&#39;)
+(0.05, &#39;PROCEDURAL&#39;, &#39;CONFLICT RESOLUTION&#39;)
+(0.05, &#39;PROCEDURAL&#39;, &#39;RULE SELECTED: print N&#39;)
+(0.1, &#39;PROCEDURAL&#39;, &#39;RULE FIRED: print N&#39;)
+daughter1 N
+(0.1, &#39;g&#39;, &#39;EXECUTED&#39;)
+(0.1, &#39;g&#39;, &#39;MODIFIED&#39;)
+(0.1, &#39;PROCEDURAL&#39;, &#39;CONFLICT RESOLUTION&#39;)
+(0.1, &#39;PROCEDURAL&#39;, &#39;RULE SELECTED: get new mother&#39;)
+(0.15, &#39;PROCEDURAL&#39;, &#39;RULE FIRED: get new mother&#39;)
+(0.15, &#39;g&#39;, &#39;MODIFIED&#39;)
+(0.15, &#39;PROCEDURAL&#39;, &#39;CONFLICT RESOLUTION&#39;)
+(0.15, &#39;PROCEDURAL&#39;, &#39;RULE SELECTED: NP ==&gt; N NP&#39;)
+(0.2, &#39;PROCEDURAL&#39;, &#39;RULE FIRED: NP ==&gt; N NP&#39;)
+(0.2, &#39;g&#39;, &#39;MODIFIED&#39;)
+(0.2, &#39;PROCEDURAL&#39;, &#39;CONFLICT RESOLUTION&#39;)
+(0.2, &#39;PROCEDURAL&#39;, &#39;RULE SELECTED: print N&#39;)
+(0.25, &#39;PROCEDURAL&#39;, &#39;RULE FIRED: print N&#39;)
+daughter1 N
+(0.25, &#39;g&#39;, &#39;EXECUTED&#39;)
+(0.25, &#39;g&#39;, &#39;MODIFIED&#39;)
+(0.25, &#39;PROCEDURAL&#39;, &#39;CONFLICT RESOLUTION&#39;)
+(0.25, &#39;PROCEDURAL&#39;, &#39;RULE SELECTED: get new mother&#39;)
+(0.3, &#39;PROCEDURAL&#39;, &#39;RULE FIRED: get new mother&#39;)
+(0.3, &#39;g&#39;, &#39;MODIFIED&#39;)
+(0.3, &#39;PROCEDURAL&#39;, &#39;CONFLICT RESOLUTION&#39;)
+(0.3, &#39;PROCEDURAL&#39;, &#39;RULE SELECTED: NP ==&gt; N NP&#39;)
+(0.35, &#39;PROCEDURAL&#39;, &#39;RULE FIRED: NP ==&gt; N NP&#39;)
+(0.35, &#39;g&#39;, &#39;MODIFIED&#39;)
+(0.35, &#39;PROCEDURAL&#39;, &#39;CONFLICT RESOLUTION&#39;)
+(0.35, &#39;PROCEDURAL&#39;, &#39;RULE SELECTED: print N&#39;)
+(0.4, &#39;PROCEDURAL&#39;, &#39;RULE FIRED: print N&#39;)
+daughter1 N
+(0.4, &#39;g&#39;, &#39;EXECUTED&#39;)
+(0.4, &#39;g&#39;, &#39;MODIFIED&#39;)
+(0.4, &#39;PROCEDURAL&#39;, &#39;CONFLICT RESOLUTION&#39;)
+(0.4, &#39;PROCEDURAL&#39;, &#39;RULE SELECTED: get new mother&#39;)
+(0.45, &#39;PROCEDURAL&#39;, &#39;RULE FIRED: get new mother&#39;)
+(0.45, &#39;g&#39;, &#39;MODIFIED&#39;)
+(0.45, &#39;PROCEDURAL&#39;, &#39;CONFLICT RESOLUTION&#39;)
+(0.45, &#39;PROCEDURAL&#39;, &#39;RULE SELECTED: NP ==&gt; N NP&#39;)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div></div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next time(?): <strong>chapter 3</strong> - syntactic parsing in ACT-R</p>
+
+</div>
+</div>
 </div></section></section>
 </div>
 </div>
